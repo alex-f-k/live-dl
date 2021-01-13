@@ -1496,7 +1496,9 @@ while true; do
         func_send_slack "start"
         func_send_telegram "start"
         func_download_youtube
-        func_finalize_download
+        if [ "$SKIP_CONVERT" != "true" ]; then
+          func_finalize_download
+        fi
         func_send_email "⚫️ [YouTube] $UPLOADER - $FULLTITLE" "$FILE_SUMMARY_TRIM"
 
       #
@@ -1543,7 +1545,9 @@ while true; do
 
       if [ "$MODE" == "download" ]; then
         func_download_youtube
-        func_finalize_download
+        if [ "$SKIP_CONVERT" != "true" ]; then
+          func_finalize_download
+        fi
         exit 0
       else
         __info "Metadata only mode, no video will be downloaded."
